@@ -5,6 +5,6 @@ interface CardProps {
   text: string;
 }
 
-export function Card({ text }: CardProps) {
+export default function Card({ text }: CardProps) {
   return <CardContainer>{text}</CardContainer>;
 }
