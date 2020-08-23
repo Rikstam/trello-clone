@@ -5,18 +5,18 @@ import AddNewItem from "./AddNewItem";
 import { useAppState } from "./AppStateContext";
 
 function App() {
-  const { state } = useAppState();
+  const { state, dispatch } = useAppState();
 
   return (
     <AppContainer>
       {state.lists.map((list, i) => (
-        <Column text={list.text} key={list.id} index={i} />
+        <Column text={list.text} key={list.id} index={i} id={list.id}/>
       ))}
 
       <AddNewItem
         dark
         toggleButtonText="+ Add another list"
-        onAdd={console.log}
+        onAdd={text => dispatch({type: "ADD_LIST", payload: text})}
       />
     </AppContainer>
   );
