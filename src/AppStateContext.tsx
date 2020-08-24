@@ -9,7 +9,17 @@ type Action =
     }
   | {
       type: "ADD_TASK";
-      payload: { text: string; listId: string };
+      payload: {
+        text: string;
+        listId: string;
+      };
+    }
+  | {
+      type: "MOVE_LIST";
+      payload: {
+        dragIndex: number;
+        hoverIndex: number;
+      };
     };
 
 interface AppStateContextProps {
@@ -46,14 +56,22 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
     }
     case "ADD_TASK": {
       // reducer logic here
-      const targetLaneIndex = findItemIndexById(state.lists, action.payload.listId)
+      const targetLaneIndex = findItemIndexById(
+        state.lists,
+        action.payload.listId
+      );
       state.lists[targetLaneIndex].tasks.push({
-          id: nanoid(),
-          text: action.payload.text
-      })
+        id: nanoid(),
+        text: action.payload.text,
+      });
       return {
         ...state,
       };
+    }
+    case "MOVE_LIST": {
+        const { dragIndex, hoverIndex} = action.payload
+        state.lists = moveItem(state.lists, dragIndex, hoverIndex)
+        return {...state}
     }
     default: {
       return state;
