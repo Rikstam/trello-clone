@@ -1,8 +1,8 @@
-import React from "react";
-import { Column } from "./Column";
-import AppContainer from "./styles";
-import AddNewItem from "./AddNewItem";
-import { useAppState } from "./AppStateContext";
+import React from 'react';
+import { Column } from './Column';
+import { AppContainer } from './styles';
+import AddNewItem from './AddNewItem';
+import { useAppState } from './AppStateContext';
 
 function App() {
   const { state, dispatch } = useAppState();
@@ -10,13 +10,13 @@ function App() {
   return (
     <AppContainer>
       {state.lists.map((list, i) => (
-        <Column text={list.text} key={list.id} index={i} id={list.id}/>
+        <Column text={list.text} key={list.id} index={i} id={list.id} />
       ))}
 
       <AddNewItem
         dark
         toggleButtonText="+ Add another list"
-        onAdd={text => dispatch({type: "ADD_LIST", payload: text})}
+        onAdd={(text) => dispatch({ type: 'ADD_LIST', payload: text })}
       />
     </AppContainer>
   );
